@@ -9,19 +9,14 @@ use egui::text::TextWrapping;
 use egui::{Label, Response, Stroke, Ui};
 
 use ratatui::{
-    layout::Position,
+    backend::{Backend, ClearType, WindowSize},
+    buffer::{Buffer, Cell},
+    layout::{Position, Rect, Size},
     style::{Color, Modifier},
 };
 
 use std::io;
 use web_time::Instant;
-
-use ratatui::{
-    backend::{Backend, ClearType, WindowSize},
-    buffer::{Buffer, Cell},
-    layout::{Rect, Size},
-    //Terminal,
-};
 
 use crate::TerminalLine;
 //use egui::Label as TerminalLine;

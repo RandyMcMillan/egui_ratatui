@@ -38,45 +38,62 @@ fn ui_example_system(
     windows: Query<&Window>,
     mut termres: ResMut<BevyTerminal<RataguiBackend>>,
 ) {
-    let primary_window = windows.single();
-    let width_height = egui::vec2(primary_window.width() - 10., primary_window.height() - 10.);
-    termres
-        .terminal
-        .draw(|frame| {
-            let primary_window = windows.single();
+    for window in windows.iter() {
+        let max_width = window.resolution.width();
+        println!("Max width: {}", max_width);
+        let max_height = window.resolution.height();
+        println!("Max height: {}", max_height);
+        //}
 
-            let pos = egui::pos2(20.0, 20.0);
-            let width_height =
-                egui::vec2(primary_window.width() - 10., primary_window.height() - 10.);
-            let window_area = RatatuiRect::new(
-                pos.x as u16,
-                pos.y as u16,
-                width_height.x as u16, //- pos.x as u16,
-                width_height.y as u16, //- pos.y as u16,
-            );
-            let area = frame.area();
-            let textik = format!("Hello bevy!\nThe adjusted window area is {}", window_area);
-            frame.render_widget(
-                Paragraph::new(textik)
-                    .block(Block::new().title("LOL").borders(Borders::ALL))
-                    .white()
-                    .on_blue()
-                    .wrap(Wrap { trim: false }),
-                area,
-            );
-        })
-        .expect("epic fail");
+        let primary_window = windows.single();
+        let width_height = egui::vec2(primary_window.width() - 10., primary_window.height() - 10.);
+        termres
+            .terminal
+            .draw(|frame| {
+                let primary_window = windows.single();
 
-    egui::Window::new("Hello Bevy-Egui").show(contexts.ctx_mut(), |ui| {
-        //ui.set_opacity(0.5);
-        ui.set_max_width(width_height.x);
-        ui.set_max_height(width_height.y - 30.0);
-        //ui.label("This label will be constrained to a maximum width of 300 pixels.");
-        //ui.text_edit_multiline(&mut String::new()); // Multiline text edit
-        //ui.button("Click me!");
-        let huh = termres.terminal.backend_mut();
-        ui.add(huh);
-    });
+                let pos = egui::pos2(20.0, 20.0);
+                let width_height =
+                    egui::vec2(primary_window.width() - 10., primary_window.height() - 10.);
+                let window_area = RatatuiRect::new(
+                    pos.x as u16,
+                    pos.y as u16,
+                    max_height as u16, //width_height.x as u16, //- pos.x as u16,
+                    max_width as u16,  //width_height.y as u16, //- pos.y as u16,
+                );
+                let paragraph_area = RatatuiRect::new(
+                    pos.x as u16,
+                    pos.y as u16,
+                    max_height as u16 - 20.0 as u16, //width_height.x as u16, //- pos.x as u16,
+                    max_width as u16 - 20.0 as u16,  //width_height.y as u16, //- pos.y as u16,
+                );
+                let area = frame.area();
+                let textik = format!("Hello bevy!\nThe adjusted window area is {}", window_area);
+                frame.render_widget(
+                    Paragraph::new(textik)
+                        .block(Block::new().title("LOL").borders(Borders::ALL))
+                        .white()
+                        .on_blue()
+                        .wrap(Wrap { trim: false }),
+                    area,
+                );
+            })
+            .expect("epic fail");
+
+        egui::Window::new("Hello Bevy-Egui")
+            //.min_size(egui::vec2(200.0, 150.0)) // Minimum width and height
+            //.max_size(egui::vec2(600.0, 400.0)) // Maximum width and height
+            .show(contexts.ctx_mut(), |ui| {
+                //ui.set_opacity(0.5);
+                ui.set_max_width(max_width - 40.);
+                ui.set_max_height(max_height - 40.);
+                //ui.label("This label will be constrained to a maximum width of 300 pixels.");
+                //ui.text_edit_multiline(&mut String::new()); // Multiline text edit
+                //ui.button("Click me!");
+                let huh = termres.terminal.backend_mut();
+                ui.add(huh);
+            });
+    }
 }
 // Create resource to hold the ratatui terminal
 #[derive(Resource)]

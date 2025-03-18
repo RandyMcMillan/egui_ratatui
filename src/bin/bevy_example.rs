@@ -38,7 +38,6 @@ fn ui_example_system(
     windows: Query<&Window>,
     mut termres: ResMut<BevyTerminal<RataguiBackend>>,
 ) {
-
     let primary_window = windows.single();
     let width_height = egui::vec2(primary_window.width() - 10., primary_window.height() - 10.);
     termres

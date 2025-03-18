@@ -1,6 +1,8 @@
 //! This module provides the `RataguiBackend` implementation for the [`Backend`] trait.
 //! It is used in the integration tests to verify the correctness of the library.
 
+use log::{info, debug, error, warn, trace};
+
 use egui::epaint::{
     text::{LayoutJob, TextFormat},
     Color32, FontFamily, FontId, Fonts,
@@ -71,25 +73,25 @@ impl egui::Widget for &mut RataguiBackend {
         let char_height = ui.fonts(|fx| fx.row_height(&self.regular_font));
         let char_width = ui.fonts(|fx| self.get_font_width(fx));
 
-        println!("char_height:{}, char_width:{}", char_height, char_width);
+        debug!("char_height:{}, char_width:{}", char_height, char_width);
         // it is limited to this because the ratatui buffer is cast to u8 somewhere
 
         let max_width = char_width * 1270.0 * 0.1;
         let max_height = char_height * 710.0 * 0.1;
-        println!("max_height:{}, max_width:{}", max_height, max_width);
+        trace!("max_height:{}, max_width:{}", max_height, max_width);
 
         let av_size = ui.available_size();
 
         let av_width = (av_size.x).clamp(1.0, max_width);
         let av_height = (av_size.y).clamp(1.0, max_height);
-        println!("av_height:{}, av_width:{}", av_height, av_width);
+        trace!("av_height:{}, av_width:{}", av_height, av_width);
 
         // there are weird issues with high dpi displays relating to native pixels per point and zoom factor
         let available_chars_width = (av_width / (char_width)) as u16;
-        println!("av chars width: {:#?}", available_chars_width);
+        trace!("av chars width: {:#?}", available_chars_width);
 
         let available_chars_height = (av_height / (char_height)) as u16;
-        println!("av chars height: {:#?}", available_chars_height);
+        trace!("av chars height: {:#?}", available_chars_height);
         /*
         if available_chars_width >55 {available_chars_width-=available_chars_width/60;}
         if available_chars_height >40 {available_chars_height-=available_chars_height/60;}
@@ -283,7 +285,7 @@ impl RataguiBackend {
     pub fn get_font_width(&self, fontiki: &Fonts) -> f32 {
         let fid = self.regular_font.clone();
         let widik = fontiki.glyph_width(&fid, ' ');
-        // println!("widik is {:#?}",widik);
+        trace!("widik is {:#?}",widik);
         widik
     }
 

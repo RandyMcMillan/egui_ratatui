@@ -20,6 +20,7 @@ use ratatui::{
     backend::{Backend, ClearType, WindowSize},
     buffer::{Buffer, Cell},
     layout::{Rect, Size},
+    //Terminal,
 };
 
 use crate::TerminalLine;
@@ -30,7 +31,7 @@ use crate::TerminalLine;
 /// Spawn with RataguiBackend::new() or RataguiBackend::new_with_fonts()   .
 /// See the hello_world_web example for custom font usage
 #[derive(Debug, Clone, PartialEq, Hash)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+//#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct RataguiBackend {
     width: u16,
     buffer: Buffer,
@@ -75,21 +76,25 @@ impl egui::Widget for &mut RataguiBackend {
         let char_height = ui.fonts(|fx| fx.row_height(&self.regular_font));
         let char_width = ui.fonts(|fx| self.get_font_width(fx));
 
+        println!("char_height:{}, char_width:{}", char_height, char_width);
         // it is limited to this because the ratatui buffer is cast to u8 somewhere
 
-        let max_width = char_width * 250.0;
-        let max_height = char_height * 250.0;
+        let max_width = char_width * 1270.0 * 0.1;
+        let max_height = char_height * 710.0 * 0.1;
+        println!("max_height:{}, max_width:{}", max_height, max_width);
 
         let av_size = ui.available_size();
 
         let av_width = (av_size.x).clamp(1.0, max_width);
         let av_height = (av_size.y).clamp(1.0, max_height);
+        println!("av_height:{}, av_width:{}", av_height, av_width);
 
         // there are weird issues with high dpi displays relating to native pixels per point and zoom factor
         let available_chars_width = (av_width / (char_width)) as u16;
+        println!("av chars width: {:#?}", available_chars_width);
 
         let available_chars_height = (av_height / (char_height)) as u16;
-        //println!("av chars width: {:#?}",available_chars_width);
+        println!("av chars height: {:#?}", available_chars_height);
         /*
         if available_chars_width >55 {available_chars_width-=available_chars_width/60;}
         if available_chars_height >40 {available_chars_height-=available_chars_height/60;}

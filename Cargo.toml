@@ -9,16 +9,17 @@ description = "WASM ratatui with egui works with bevy and macroquad and eframe"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/gold-silver-copper/egui_ratatui"
 
-
 [lib]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-ratatui = { version = "0.29", default-features = false }
+bevy = "0.14.1"
+bevy_egui = "0.30.0"
+eframe = "0.27"
 egui = { version = "0.29", default-features = false }
+ratatui = { version = "0.29", default-features = false }
 
 web-time = { version = "1" }
-
 
 [profile.release]
 opt-level = 2 # fast and small wasm

@@ -1,4 +1,5 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, window::WindowResized};
+
 use bevy_egui::{egui, EguiContexts, EguiPlugin};
 use egui_ratatui::RataguiBackend;
 use ratatui::{layout::Rect as RatatuiRect, prelude::Direction};
@@ -29,6 +30,7 @@ fn main() {
         // Systems that create Egui widgets should be run during the `CoreSet::Update` set,
         // or after the `EguiSet::BeginFrame` system (which belongs to the `CoreSet::PreUpdate` set).
         .add_systems(Update, ui_example_system)
+        .add_systems(Update, handle_window_events)
         .run();
 }
 
@@ -40,9 +42,9 @@ fn ui_example_system(
 ) {
     for window in windows.iter() {
         let max_width = window.resolution.width();
-        println!("Max width: {}", max_width);
+        debug!("Max width: {}", max_width);
         let max_height = window.resolution.height();
-        println!("Max height: {}", max_height);
+        debug!("Max height: {}", max_height);
         //}
 
         let primary_window = windows.single();
@@ -107,5 +109,21 @@ impl Default for BevyTerminal<RataguiBackend> {
         let backend = RataguiBackend::new(0, 0);
         let terminal = Terminal::new(backend).unwrap();
         BevyTerminal { terminal }
+    }
+}
+
+fn handle_window_events(mut resize_events: EventReader<WindowResized>, windows: Query<&Window>) {
+    for event in resize_events.read() {
+        let window = windows.get(event.window).unwrap(); // Get the window that was resized.
+        debug!(
+            "Window resized: id: {:?}, width: {}, height: {}",
+            event.window,
+            window.width(),
+            window.height()
+        );
+        // You can now do whatever you want with this information, such as:
+        // * Adjusting camera projection.
+        // * Re-laying out UI elements.
+        // * Updating rendering parameters.
     }
 }

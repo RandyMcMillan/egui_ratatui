@@ -2735,6 +2735,7 @@ dependencies = [
  "serde_json",
  "tokio",
  "tracing",
+ "tracing-subscriber",
  "tui-input",
  "ureq",
  "web-time 1.1.0",

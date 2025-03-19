@@ -1,7 +1,7 @@
 //! This module provides the `RataguiBackend` implementation for the [`Backend`] trait.
 //! It is used in the integration tests to verify the correctness of the library.
 
-use log::{info, debug, error, warn, trace};
+use log::{debug, error, info, trace, warn};
 
 use egui::epaint::{
     text::{LayoutJob, TextFormat},
@@ -285,7 +285,7 @@ impl RataguiBackend {
     pub fn get_font_width(&self, fontiki: &Fonts) -> f32 {
         let fid = self.regular_font.clone();
         let widik = fontiki.glyph_width(&fid, ' ');
-        trace!("widik is {:#?}",widik);
+        trace!("widik is {:#?}", widik);
         widik
     }
 

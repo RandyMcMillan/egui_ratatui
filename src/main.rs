@@ -84,7 +84,7 @@ fn ui_example_system(
                 let textik = format!("Hello bevy!\nThe adjusted window area is {}", window_area);
                 frame.render_widget(
                     Paragraph::new(textik)
-                        .block(Block::new().title("LOL").borders(Borders::ALL))
+                        .block(Block::new().title(" gnostr-chat ").borders(Borders::ALL))
                         .white()
                         .on_blue()
                         .wrap(Wrap { trim: false }),

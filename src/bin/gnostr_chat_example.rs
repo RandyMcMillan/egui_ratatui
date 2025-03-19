@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy_egui::{egui, EguiContexts, EguiPlugin};
-use egui_ratatui::RataguiBackend;
+use gnostr_chat::RataguiBackend;
 use ratatui::{layout::Rect as RatatuiRect, prelude::Direction};
 use ratatui::{
     prelude::{Stylize, Terminal},

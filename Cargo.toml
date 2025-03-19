@@ -1,5 +1,5 @@
 [package]
-name = "egui_ratatui"
+name = "gnostr_chat"
 version = "0.0.29"
 authors = ["gold-silver-copper"]
 edition = "2021"

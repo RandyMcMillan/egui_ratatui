@@ -2716,32 +2716,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "egui_ratatui"
-version = "0.0.29"
-dependencies = [
- "bevy",
- "bevy_egui",
- "clap",
- "eframe",
- "egui 0.29.1",
- "env_logger",
- "futures",
- "hostname 0.3.1",
- "libp2p",
- "log",
- "once_cell",
- "ratatui",
- "serde",
- "serde_json",
- "tokio",
- "tracing",
- "tracing-subscriber",
- "tui-input",
- "ureq",
- "web-time 1.1.0",
-]
-
-[[package]]
 name = "either"
 version = "1.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3472,6 +3446,32 @@ dependencies = [
  "ab_glyph",
  "approx",
  "xi-unicode",
+]
+
+[[package]]
+name = "gnostr_chat"
+version = "0.0.29"
+dependencies = [
+ "bevy",
+ "bevy_egui",
+ "clap",
+ "eframe",
+ "egui 0.29.1",
+ "env_logger",
+ "futures",
+ "hostname 0.3.1",
+ "libp2p",
+ "log",
+ "once_cell",
+ "ratatui",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "tui-input",
+ "ureq",
+ "web-time 1.1.0",
 ]
 
 [[package]]

@@ -1,7 +1,7 @@
 [package]
 name = "gnostr_chat"
-version = "0.0.29"
-authors = ["gold-silver-copper"]
+version = "0.0.0"
+authors = ["gnostr-org"]
 edition = "2021"
 include = ["LICENSE-APACHE", "LICENSE-MIT", "**/*.rs", "Cargo.toml"]
 rust-version = "1.76"

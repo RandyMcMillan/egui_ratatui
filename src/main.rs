@@ -1,13 +1,3 @@
-use clap::{Arg, ArgAction, ArgMatches, Command, Parser, Subcommand};
-
-use libp2p::{gossipsub, mdns, noise, swarm::NetworkBehaviour, swarm::SwarmEvent, tcp, yamux};
-
-use once_cell::sync::OnceCell;
-use std::{error::Error, time::Duration};
-use tokio::{io, io::AsyncBufReadExt};
-use tracing::debug;
-use tracing_subscriber::EnvFilter;
-
 mod p2p;
 mod ui;
 use p2p::evt_loop;
@@ -15,18 +5,23 @@ mod msg;
 use msg::*;
 
 use bevy::{prelude::*, window::WindowResized};
-
+//use egui::Rect as EguiRect;
+use bevy_egui::egui::Rect as EguiRect;
 use bevy_egui::{egui, EguiContexts, EguiPlugin};
+use clap::{Arg, ArgAction, ArgMatches, Command, Parser, Subcommand};
+
 use gnostr_chat::RataguiBackend;
-use ratatui::{layout::Rect as RatatuiRect, prelude::Direction};
+use libp2p::{gossipsub, mdns, noise, swarm::NetworkBehaviour, swarm::SwarmEvent, tcp, yamux};
+use once_cell::sync::OnceCell;
 use ratatui::{
-    prelude::{Stylize, Terminal},
+    layout::Rect as RatatuiRect,
+    prelude::{Direction, Stylize, Terminal},
     widgets::{Block, Borders, Paragraph, Wrap},
 };
-
-//use egui::Rect as EguiRect;
-
-use bevy_egui::egui::Rect as EguiRect;
+use std::{error::Error, time::Duration};
+use tokio::{io, io::AsyncBufReadExt};
+use tracing::debug;
+use tracing_subscriber::EnvFilter;
 
 fn ratatui_rect_from_bevy_egui_rect(egui_rect: EguiRect) -> RatatuiRect {
     RatatuiRect::new(

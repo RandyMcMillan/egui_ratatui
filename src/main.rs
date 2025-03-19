@@ -81,7 +81,7 @@ fn ui_example_system(
                     max_width as u16 - 20.0 as u16,  //width_height.y as u16, //- pos.y as u16,
                 );
                 let area = frame.area();
-                let textik = format!("Hello bevy!\nThe adjusted window area is {}", window_area);
+                let textik = format!("1\n2\n3\n4\n5...\nThe adjusted window area is {}", window_area);
                 frame.render_widget(
                     Paragraph::new(textik)
                         .block(Block::new().title(" gnostr-chat ").borders(Borders::ALL))

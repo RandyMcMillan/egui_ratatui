@@ -12,6 +12,10 @@ repository = "https://github.com/gold-silver-copper/egui_ratatui"
 [lib]
 crate-type = ["cdylib", "rlib"]
 
+[[bin]]
+name = "gnostr-chat"
+path = "src/main.rs"
+
 [dependencies]
 bevy = "0.14.1"
 bevy_egui = "0.30.0"
